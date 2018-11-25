@@ -28,26 +28,27 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`cognito-tools hello`](#cognito-tools-hello)
+* [`cognito-tools backup`](#cognito-tools-backup)
 * [`cognito-tools help [COMMAND]`](#cognito-tools-help-command)
 
-## `cognito-tools hello`
+## `cognito-tools backup`
 
 Describe the command here
 
 ```
 USAGE
-  $ cognito-tools hello
+  $ cognito-tools backup
 
 OPTIONS
-  -n, --name=name  name to print
+  -r, --region=region          [default: ap-northeast-1] region name
+  -u, --userPoolId=userPoolId  userPool Id
 
 DESCRIPTION
   ...
   Extra documentation goes here
 ```
 
-_See code: [src/commands/hello.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.0/src/commands/hello.js)_
+_See code: [src/commands/backup.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.0/src/commands/backup.js)_
 
 ## `cognito-tools help [COMMAND]`
 
