@@ -60,6 +60,6 @@
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
     "version": "oclif-dev readme && git add README.md",
-    "test:coverage": "istanbul cover nyc ./node_modules/.bin/_mocha --forbid-only \"./test/**/*.test.js\" && CODECOV_TOKEN='b07b92fd-1320-4006-8073-d3f3e4105138' codecov -f ./.nyc_output"
+    "test:coverage": "rm -rf .nyc_output/* &&istanbul cover nyc ./node_modules/.bin/_mocha --forbid-only \"./test/**/*.test.js\" && CODECOV_TOKEN='b07b92fd-1320-4006-8073-d3f3e4105138' codecov -f .nyc_output/*"
   }
 }
