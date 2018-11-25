@@ -1,0 +1,44 @@
+{
+  "name": "cognito-tools",
+  "description": "cognito tools",
+  "version": "0.0.0",
+  "author": "keisuke6065",
+  "bin": {
+    "cognito-tools": "./bin/run"
+  },
+  "bugs": "https://github.com/keisuke6065/cognito-tools/issues",
+  "dependencies": {
+    "@oclif/command": "^1",
+    "@oclif/config": "^1",
+    "@oclif/plugin-help": "^2"
+  },
+  "devDependencies": {
+    "@oclif/test": "^1",
+    "chai": "^4",
+    "eslint": "^5.5",
+    "eslint-config-oclif": "^3.1",
+    "mocha": "^5",
+    "nyc": "^13"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/src"
+  ],
+  "homepage": "https://github.com/keisuke6065/cognito-tools",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "bin": "cognito-tools"
+  },
+  "repository": "keisuke6065/cognito-tools",
+  "scripts": {
+    "posttest": "eslint .",
+    "test": "nyc mocha --forbid-only \"test/**/*.test.js\""
+  }
+}
