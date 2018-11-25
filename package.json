@@ -13,10 +13,14 @@
     "@oclif/plugin-help": "^2"
   },
   "devDependencies": {
+    "@oclif/dev-cli": "^1",
     "@oclif/test": "^1",
     "chai": "^4",
+    "codecov": "^3.1.0",
     "eslint": "^5.5",
     "eslint-config-oclif": "^3.1",
+    "globby": "^8",
+    "istanbul": "^0.4.5",
     "mocha": "^5",
     "nyc": "^13"
   },
@@ -25,6 +29,8 @@
   },
   "files": [
     "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
     "/src"
   ],
   "homepage": "https://github.com/keisuke6065/cognito-tools",
@@ -34,11 +40,20 @@
   "license": "MIT",
   "main": "src/index.js",
   "oclif": {
-    "bin": "cognito-tools"
+    "commands": "./src/commands",
+    "bin": "cognito-tools",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
   },
   "repository": "keisuke6065/cognito-tools",
   "scripts": {
+    "start": "./bin/run",
+    "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint .",
-    "test": "nyc mocha --forbid-only \"test/**/*.test.js\""
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
+    "version": "oclif-dev readme && git add README.md",
+    "test:coverage": "istanbul cover nyc ./node_modules/.bin/_mocha --forbid-only \"./test/**/*.test.js\" && CODECOV_TOKEN='b07b92fd-1320-4006-8073-d3f3e4105138' codecov -f ./.nyc_output"
   }
 }
