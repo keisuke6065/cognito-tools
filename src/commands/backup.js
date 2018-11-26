@@ -31,6 +31,7 @@ BackupCommand.flags = {
     {
       char: 'u',
       description: 'userPool Id',
+      required: true
     },
   ),
 };

@@ -41,7 +41,7 @@ USAGE
 
 OPTIONS
   -r, --region=region          [default: ap-northeast-1] region name
-  -u, --userPoolId=userPoolId  userPool Id
+  -u, --userPoolId=userPoolId  (required) userPool Id
 
 DESCRIPTION
   ...
