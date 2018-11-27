@@ -4,10 +4,12 @@ const backup = require('../executer/backup');
 class BackupCommand extends Command {
   async run() {
     const {flags} = this.parse(BackupCommand);
-    await backup.main(flags.region, flags.userPoolId).catch(error => {
-      this.error(error);
-      this.exit(1);
-    });
+    await backup.main(flags.region, flags.userPoolId, flags.output).
+      then(totalUserCount => this.log(`total user: ${totalUserCount}`)).
+      catch(error => {
+        this.error(error);
+        this.exit(1);
+      });
     this.log(`target region ${flags.region}
 target userPoolId ${flags.userPoolId}
     `);
@@ -31,7 +33,14 @@ BackupCommand.flags = {
     {
       char: 'u',
       description: 'userPool Id',
-      required: true
+      required: true,
+    },
+  ),
+  output: flags.string(
+    {
+      char: 'o',
+      description: 'output file',
+      default: './output',
     },
   ),
 };

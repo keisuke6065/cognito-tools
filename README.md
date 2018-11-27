@@ -40,6 +40,7 @@ USAGE
   $ cognito-tools backup
 
 OPTIONS
+  -o, --output=output          [default: ./output] output file
   -r, --region=region          [default: ap-northeast-1] region name
   -u, --userPoolId=userPoolId  (required) userPool Id
 
