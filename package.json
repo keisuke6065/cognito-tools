@@ -1,7 +1,7 @@
 {
   "name": "cognito-tools",
   "description": "cognito tools",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "keisuke6065",
   "bin": {
     "cognito-tools": "./bin/run"
