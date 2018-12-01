@@ -31,7 +31,7 @@
     "sinon": "latest"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.9.0"
   },
   "files": [
     "/bin",
@@ -41,7 +41,12 @@
   ],
   "homepage": "https://github.com/keisuke6065/cognito-tools",
   "keywords": [
-    "oclif"
+    "oclif",
+    "aws",
+    "cognito",
+    "aws-cognito",
+    "backup",
+    "restore"
   ],
   "license": "MIT",
   "main": "src/index.js",
@@ -56,6 +61,7 @@
   "scripts": {
     "start": "./bin/run",
     "backup": "./bin/run backup",
+    "restore": "./bin/run restore",
     "oclif": "oclif",
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint .",

@@ -67,4 +67,24 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
+
+## `cognito-tools restore`
+
+Describe the command here
+
+```
+USAGE
+  $ cognito-tools restore
+
+OPTIONS
+  -i, --input=input            input target file
+  -r, --region=region          [default: ap-northeast-1] region name
+  -u, --userPoolId=userPoolId  (required) userPool Id
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/restore.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.1/src/commands/restore.js)_
 <!-- commandsstop -->
