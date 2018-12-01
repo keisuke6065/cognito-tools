@@ -7,7 +7,7 @@ cognito tools
 [![Version](https://img.shields.io/npm/v/cognito-tools.svg)](https://npmjs.org/package/cognito-tools)
 [![Downloads/week](https://img.shields.io/npm/dw/cognito-tools.svg)](https://npmjs.org/package/cognito-tools)
 [![License](https://img.shields.io/npm/l/cognito-tools.svg)](https://github.com/keisuke6065/cognito-tools/blob/master/package.json)
-
+[![codecov](https://codecov.io/gh/keisuke6065/cognito-tools/branch/master/graph/badge.svg)](https://codecov.io/gh/keisuke6065/cognito-tools)
 <!-- toc -->
 * [Usage](#usage)
 * [Commands](#commands)
@@ -30,23 +30,23 @@ USAGE
 <!-- commands -->
 * [`cognito-tools backup`](#cognito-tools-backup)
 * [`cognito-tools help [COMMAND]`](#cognito-tools-help-command)
+* [`cognito-tools restore`](#cognito-tools-restore)
 
 ## `cognito-tools backup`
 
-Describe the command here
+cognito-tools -u [USER_POOL_ID] -r [REGION] -o .
 
 ```
 USAGE
   $ cognito-tools backup
 
 OPTIONS
-  -o, --output=output          [default: ./output] output file
+  -o, --output=output          [default: ./output] output target dir
   -r, --region=region          [default: ap-northeast-1] region name
   -u, --userPoolId=userPoolId  (required) userPool Id
 
 DESCRIPTION
-  ...
-  Extra documentation goes here
+  cognito-tools -u [USER_POOL_ID] -r [REGION] -o .
 ```
 
 _See code: [src/commands/backup.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.1/src/commands/backup.js)_

@@ -1,47 +1,55 @@
 const {Command, flags} = require('@oclif/command');
 const backup = require('../executer/backup');
+const cli = require('cli-ux');
 
 class BackupCommand extends Command {
   async run() {
+    cli.ux.action.start('starting userPool backup');
+
     const {flags} = this.parse(BackupCommand);
-    await backup.main(flags.region, flags.userPoolId, flags.output).
-      then(totalUserCount => this.log(`total user: ${totalUserCount}`)).
-      catch(error => {
-        this.error(error);
-        this.exit(1);
-      });
-    this.log(`target region ${flags.region}
-target userPoolId ${flags.userPoolId}
-    `);
+    const totalUserCount = await backup.main(flags.region, flags.userPoolId,
+        flags.output).
+        then(totalUserCount => totalUserCount).
+        catch(error => {
+          this.error(error);
+          this.exit(1);
+        });
+
+    cli.ux.action.stop('done');
+    this.log(`total user: ${totalUserCount}`);
+    this.log(`target region ${flags.region}`);
+    this.log(`target userPoolId ${flags.userPoolId}`);
+    this.log(`output file ${flags.output}/${flags.userPoolId}.json`);
   }
 }
 
-BackupCommand.description = `Describe the command here
-...
-Extra documentation goes here
+BackupCommand.description = `
+cognito-tools -u [USER_POOL_ID] -r [REGION] -o .
 `;
 
 BackupCommand.flags = {
   region: flags.string(
-    {
-      char: 'r',
-      description: 'region name',
-      default: 'ap-northeast-1',
-    },
+      {
+        char: 'r',
+        description: 'region name',
+        env: 'REGION',
+        default: 'ap-northeast-1',
+      },
   ),
   userPoolId: flags.string(
-    {
-      char: 'u',
-      description: 'userPool Id',
-      required: true,
-    },
+      {
+        char: 'u',
+        description: 'userPool Id',
+        env: 'USER_POOL_ID',
+        required: true,
+      },
   ),
   output: flags.string(
-    {
-      char: 'o',
-      description: 'output file',
-      default: './output',
-    },
+      {
+        char: 'o',
+        description: 'output target dir',
+        default: './output',
+      },
   ),
 };
 

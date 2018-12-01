@@ -13,6 +13,7 @@
     "@oclif/plugin-help": "^2",
     "JSONStream": "^1.3.5",
     "aws-sdk": "^2.361.0",
+    "cli-ux": "^4.9.3",
     "mkdirp": "latest"
   },
   "devDependencies": {
