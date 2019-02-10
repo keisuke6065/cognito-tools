@@ -19,7 +19,7 @@ $ npm install -g cognito-tools
 $ cognito-tools COMMAND
 running command...
 $ cognito-tools (-v|--version|version)
-cognito-tools/0.0.2 darwin-x64 node-v10.9.0
+cognito-tools/0.0.3 darwin-x64 node-v10.9.0
 $ cognito-tools --help [COMMAND]
 USAGE
   $ cognito-tools COMMAND
@@ -49,7 +49,7 @@ DESCRIPTION
   cognito-tools -u [USER_POOL_ID] -r [REGION] -o .
 ```
 
-_See code: [src/commands/backup.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.2/src/commands/backup.js)_
+_See code: [src/commands/backup.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.3/src/commands/backup.js)_
 
 ## `cognito-tools help [COMMAND]`
 
@@ -66,7 +66,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.6/src/commands/help.ts)_
 
 ## `cognito-tools restore`
 
@@ -77,7 +77,7 @@ USAGE
   $ cognito-tools restore
 
 OPTIONS
-  -i, --input=input            input target file
+  -i, --input=input            (required) input target file
   -r, --region=region          [default: ap-northeast-1] region name
   -u, --userPoolId=userPoolId  (required) userPool Id
 
@@ -86,5 +86,5 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/restore.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.2/src/commands/restore.js)_
+_See code: [src/commands/restore.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.3/src/commands/restore.js)_
 <!-- commandsstop -->
