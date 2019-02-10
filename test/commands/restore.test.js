@@ -6,6 +6,7 @@ const restore = require('../../src/executer/restore');
 
 const region = 'test region';
 const userPoolId = 'test userPoolId';
+const filePath = 'test filePath';
 
 const totalUserCount = 3;
 const successUserCount = 1;
@@ -18,15 +19,19 @@ describe('restore command test', () => {
         {totalUserCount, successUserCount, failUserCount},
     );
   }));
-
   test.stdout().
-      command(['restore', '--region', region, '--userPoolId', userPoolId]).
+      command([
+        'restore',
+        '--region', region,
+        '--userPoolId', userPoolId,
+        '--input', filePath,
+      ]).
       it('runs backup parameter test', ctx => {
         expect(ctx.stdout).to.contain(`totalUserCount: ${totalUserCount}`);
         expect(ctx.stdout).to.contain(`successUserCount: ${successUserCount}`);
         expect(ctx.stdout).to.contain(`failUserCount: ${failUserCount}`);
       });
   it('runs restore parameter fail test', () => {
-    test.stderr().command(['restore', '--region', region]).exit(2);
+    test.stderr().command(['restore', '--region', region]).exit([2]);
   });
 });

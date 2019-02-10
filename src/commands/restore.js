@@ -39,6 +39,7 @@ RestoreCommand.flags = {
       {
         char: 'i',
         description: 'input target file',
+        required: true,
       },
   ),
 };
