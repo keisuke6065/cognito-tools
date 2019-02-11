@@ -2,22 +2,31 @@ const AWS = require('aws-sdk');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const JSONStream = require('JSONStream');
+const bottleneck = require('bottleneck');
+const Count = require('../util/index');
+
+const limiter = new bottleneck({
+  maxConcurrent: 1,
+  minTime: 200,
+});
 
 const limitCount = 60;
-let totalUserCount = 0;
+const count = new Count();
 
 module.exports.main = async (region, userPoolId, outputDir) => {
   const cognitoIsp = new AWS.CognitoIdentityServiceProvider({region});
   mkdirp.sync(outputDir);
   const params = {UserPoolId: userPoolId, Limit: limitCount};
   const writeStream = fs.createWriteStream(`${outputDir}/${userPoolId}.json`,
-    'utf8');
+      'utf8');
   const stringify = JSONStream.stringify();
   stringify.pipe(writeStream);
+  const fetchUsers = limiter.wrap(
+      async (params) => await cognitoIsp.listUsers(params).promise());
   const fetch = () => {
-    return fetchUsers(cognitoIsp, params).then(data => {
+    return fetchUsers(params).then(data => {
       data.Users.forEach(user => stringify.write(user));
-      countUp(data.Users.length);
+      count.totalCountUp(data.Users.length);
       if (data.PaginationToken !== undefined) {
         params.PaginationToken = data.PaginationToken;
         return fetch();
@@ -26,14 +35,6 @@ module.exports.main = async (region, userPoolId, outputDir) => {
   };
   return fetch().then(() => {
     stringify.end();
-    return totalUserCount;
+    return count.state.totalCount;
   });
-};
-
-const fetchUsers = (cognitoIsp, params) => {
-  return cognitoIsp.listUsers(params).promise();
-};
-
-const countUp = (length) => {
-  return totalUserCount += length;
 };

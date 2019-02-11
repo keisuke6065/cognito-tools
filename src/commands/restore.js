@@ -4,12 +4,12 @@ const restore = require('../executer/restore');
 class RestoreCommand extends Command {
   async run() {
     const {flags} = this.parse(RestoreCommand);
-    const {totalUserCount, successUserCount, failUserCount} =
+    const {totalCount, successCount, failCount} =
         await restore.main(
             flags.region, flags.userPoolId, flags.input);
-    this.log(`totalUserCount: ${totalUserCount}`);
-    this.log(`successUserCount: ${successUserCount}`);
-    this.log(`failUserCount: ${failUserCount}`);
+    this.log(`totalUserCount: ${totalCount}`);
+    this.log(`successUserCount: ${successCount}`);
+    this.log(`failUserCount: ${failCount}`);
   }
 }
 

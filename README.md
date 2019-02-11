@@ -28,9 +28,27 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`cognito-tools backup`](#cognito-tools-backup)
 * [`cognito-tools help [COMMAND]`](#cognito-tools-help-command)
+* [`cognito-tools backup`](#cognito-tools-backup)
 * [`cognito-tools restore`](#cognito-tools-restore)
+* [`cognito-tools force-registration`](#cognito-tools-force-registration)
+
+## `cognito-tools help [COMMAND]`
+
+display help for cognito-tools
+
+```
+USAGE
+  $ cognito-tools help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.6/src/commands/help.ts)_
 
 ## `cognito-tools backup`
 
@@ -51,23 +69,6 @@ DESCRIPTION
 
 _See code: [src/commands/backup.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.3/src/commands/backup.js)_
 
-## `cognito-tools help [COMMAND]`
-
-display help for cognito-tools
-
-```
-USAGE
-  $ cognito-tools help [COMMAND]
-
-ARGUMENTS
-  COMMAND  command to show help for
-
-OPTIONS
-  --all  see all commands in CLI
-```
-
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.6/src/commands/help.ts)_
-
 ## `cognito-tools restore`
 
 Describe the command here
@@ -87,4 +88,25 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/restore.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.3/src/commands/restore.js)_
+
+## `cognito-tools force-registration`
+
+Describe the command here
+
+```
+USAGE
+  $ cognito-tools force-registration
+
+OPTIONS
+  -c, --clientId=clientId  (required) client Id
+  -i, --input=input        input target csv file
+  -r, --region=region      [default: ap-northeast-1] region name
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/force-registration.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.3/src/commands/force-registration.js)_
+
 <!-- commandsstop -->

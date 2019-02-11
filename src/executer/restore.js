@@ -4,44 +4,15 @@ const JSONStream = require('JSONStream');
 const util = require('util');
 const stream = require('stream');
 const bottleneck = require('bottleneck');
-const {sleep} = require('../util/index');
+const Count = require('../util/index');
+const {createParam} = require('../util/create_param');
 
+const count = new Count();
 const pipeline = util.promisify(stream.pipeline);
 const limiter = new bottleneck({
+  maxConcurrent: 10,
   minTime: 100,
-  maxConcurrent: 1,
 });
-
-function createParam(userPoolId, data) {
-  const attributes = data.Attributes.filter(a => a.Name !== 'sub');
-  const email = data.Attributes.filter(
-      a => a.Name === 'email')[0].Value;
-  // Username = email
-  return {
-    UserPoolId: userPoolId,
-    Username: email,
-    UserAttributes: attributes,
-    DesiredDeliveryMediums: [], // EMAIL or SMS
-    MessageAction: 'SUPPRESS', //or RESEND
-    ForceAliasCreation: false,
-    // TemporaryPassword: tempPassword,
-  };
-}
-
-const count = {
-  totalUserCount: 0,
-  successUserCount: 0,
-  failUserCount: 0,
-};
-
-async function waitingCountUp() {
-  while (count.totalUserCount !==
-  (count.failUserCount + count.successUserCount)) {
-    await sleep(1000);
-    if (count.totalUserCount ===
-        (count.failUserCount + count.successUserCount)) break;
-  }
-}
 
 /**
  * user name eq email pattern
@@ -49,7 +20,7 @@ async function waitingCountUp() {
  * @param region
  * @param userPoolId
  * @param filePath
- * @returns {Promise<{totalUserCount: number, successUserCount: number, failUserCount: number}>}
+ * @returns {Promise<{totalCount: number, successCount: number, failCount: number}>}
  */
 exports.main = async (region, userPoolId, filePath) => {
   const cognitoIsp = new AWS.CognitoIdentityServiceProvider({region});
@@ -63,18 +34,18 @@ exports.main = async (region, userPoolId, filePath) => {
   await pipeline(
       writableStream.on('data', async (data) => {
         const param = createParam(userPoolId, data);
-        count.totalUserCount += 1;
+        count.totalCountUp();
 
         await userCreation(param).then(() => {
-          count.successUserCount += 1;
+          count.successCountUp();
         }).catch(() => {
-          count.failUserCount += 1;
+          count.failCountUp();
         });
       }),
       writableStream.on('close', () => {
       }),
   );
-  await waitingCountUp();
-  return count;
+  await count.waitingCountUp(1000);
+  return count.state;
 };
 
