@@ -12,7 +12,10 @@ class RestoreCommand extends Command {
   }
 }
 
-RestoreCommand.description = `cognito admin create user
+RestoreCommand.description = `
+cognito-tools restore -u [USER_POOL_ID] -r [REGION] -i [INPUT_JSON_FILE]
+
+cognito admin create user
 input json file example
 [{"Username":"","Attributes":[{"Name":"sub","Value":"039bf366-7942-4888-a772-41dadacb2ea9"},{"Name":"email","Value":"sample@example.com"}]}]
 

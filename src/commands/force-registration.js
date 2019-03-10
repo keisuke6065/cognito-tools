@@ -18,7 +18,11 @@ class ForceRegistrationCommand extends Command {
   }
 }
 
-ForceRegistrationCommand.description = `force create user
+ForceRegistrationCommand.description = `
+cognito-tools force-registration -u [USER_POOL_ID] -c [CLIENT_ID] -r [REGION] -i [INPUT_CSV_FILE] -o [OUTPUT_TARGET_DIR]
+
+force create user
+
 input file example
 email,password,custom:customAttributeName,facebookId
 6059028c-2d13-11e9-8d87-4f75dd5bbbcf@exmaple.com,,1,00000000000
