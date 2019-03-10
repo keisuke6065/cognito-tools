@@ -1,7 +1,7 @@
 const chai = require('chai');
 const assert = chai.assert;
 
-const {createParam} = require('../../src/util/create_param');
+const {createParam} = require('../../src/util/cognito_util');
 
 describe('Restore test', () => {
   const userPoolId = 'hoge';

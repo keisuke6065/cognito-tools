@@ -8,12 +8,7 @@ class BackupCommand extends Command {
 
     const {flags} = this.parse(BackupCommand);
     const totalUserCount = await backup.main(flags.region, flags.userPoolId,
-        flags.output).
-        then(totalUserCount => totalUserCount).
-        catch(error => {
-          this.error(error);
-          this.exit(1);
-        });
+        flags.output);
 
     cli.ux.action.stop('done');
     this.log(`total user: ${totalUserCount}`);
@@ -25,6 +20,10 @@ class BackupCommand extends Command {
 
 BackupCommand.description = `
 cognito-tools -u [USER_POOL_ID] -r [REGION] -o .
+
+output file example
+[{"Username":"","Attributes":[{"Name":"sub","Value":"7f1f8d94-5c2d-430f-97a7-e2d5d0bb14f1"},{"Name":"email_verified","Value":"false"},{"Name":"email","Value":"sample@example.com"}],"UserCreateDate":"2019-01-18T00:48:59.572Z","UserLastModifiedDate":"2019-01-18T00:48:59.572Z","Enabled":true,"UserStatus":"UNCONFIRMED"}]
+
 `;
 
 BackupCommand.flags = {

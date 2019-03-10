@@ -1,8 +1,10 @@
 const AWS = require('aws-sdk');
 const bottleneck = require('bottleneck');
 const csvParse = require('csv-parse');
+const csv = require('csv');
 const fs = require('fs');
-const Count = require('../util/index');
+const Count = require('../util/count');
+const {forceCreateUser} = require('../util/cognito_util');
 
 const count = new Count();
 const limiter = new bottleneck({
@@ -16,44 +18,38 @@ const parse = csvParse({
   return records;
 });
 
-const createParam = (clientId, data) => {
-  const attributes = Object.keys(data).
-      filter((key) => ['email', 'password'].indexOf(key) === -1).
-      map(key => ({
-            Name: key,
-            Value: data[key],
-          }
-      ));
-  return {
-    ClientId: clientId,
-    Username: data.email,
-    UserAttributes: attributes,
-    Password: data.password,
-  };
-};
-
 /**
  * user name eq email pattern
  *
  * @param region
+ * @param userPoolId
  * @param clientId
  * @param filePath
+ * @param outputDir
  * @returns {Promise<{failCount, successCount, totalCount}|*>}
  */
-module.exports.main = async (region, clientId, filePath) => {
+module.exports.main = async (
+    region, userPoolId, clientId, filePath, outputDir) => {
   const cognitoIsp = new AWS.CognitoIdentityServiceProvider({region});
   const userCreation = limiter.wrap(
-      async (param) => await cognitoIsp.signUp(param).promise());
+      async (param) => forceCreateUser(cognitoIsp, param,
+          userPoolId, clientId));
   const buf = Buffer.from(filePath);
   const readStream = fs.createReadStream(buf, 'utf8');
-
   const writableStream = readStream.pipe(parse);
-  writableStream.on('data', async (data) => {
-    const param = createParam(clientId, data);
+
+  const writeStream = fs.createWriteStream(`${outputDir}/${userPoolId}.csv`,
+      'utf8');
+  const stringify = csv.stringify({header: true});
+
+  stringify.pipe(writeStream);
+  writableStream.on('data', (data) => {
     count.totalCountUp();
-    await userCreation(param).then(() => {
+    userCreation(data).then(result => {
+      stringify.write({userName: result, ...data});
       count.successCountUp();
-    }).catch(() => {
+    }).catch((err) => {
+      console.error('create user error data: %o StackTrace: %o', data, err);
       count.failCountUp();
     });
   });

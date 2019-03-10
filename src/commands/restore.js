@@ -5,17 +5,22 @@ class RestoreCommand extends Command {
   async run() {
     const {flags} = this.parse(RestoreCommand);
     const {totalCount, successCount, failCount} =
-        await restore.main(
-            flags.region, flags.userPoolId, flags.input);
+        await restore.main(flags.region, flags.userPoolId, flags.input);
     this.log(`totalUserCount: ${totalCount}`);
     this.log(`successUserCount: ${successCount}`);
     this.log(`failUserCount: ${failCount}`);
   }
 }
 
-RestoreCommand.description = `Describe the command here
-...
-Extra documentation goes here
+RestoreCommand.description = `cognito admin create user
+input json file example
+[{"Username":"","Attributes":[{"Name":"sub","Value":"039bf366-7942-4888-a772-41dadacb2ea9"},{"Name":"email","Value":"sample@example.com"}]}]
+
+admin create use options
+Username = email
+MessageAction = SUPPRESS
+DesiredDeliveryMediums = none
+ForceAliasCreation = false
 `;
 
 RestoreCommand.flags = {

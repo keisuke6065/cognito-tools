@@ -4,8 +4,8 @@ const JSONStream = require('JSONStream');
 const util = require('util');
 const stream = require('stream');
 const bottleneck = require('bottleneck');
-const Count = require('../util/index');
-const {createParam} = require('../util/create_param');
+const Count = require('../util/count');
+const {adminCreateUser, createParam} = require('../util/cognito_util');
 
 const count = new Count();
 const pipeline = util.promisify(stream.pipeline);
@@ -25,20 +25,21 @@ const limiter = new bottleneck({
 exports.main = async (region, userPoolId, filePath) => {
   const cognitoIsp = new AWS.CognitoIdentityServiceProvider({region});
   const userCreation = limiter.wrap(
-      async (param) => cognitoIsp.adminCreateUser(param).promise());
+      async (param) => adminCreateUser(cognitoIsp, param));
 
   const readStream = fs.createReadStream(filePath, 'utf8');
   const parse = JSONStream.parse('*');
   const writableStream = readStream.pipe(parse);
 
   await pipeline(
-      writableStream.on('data', async (data) => {
+      writableStream.on('data', (data) => {
         const param = createParam(userPoolId, data);
         count.totalCountUp();
 
-        await userCreation(param).then(() => {
+        userCreation(param).then(() => {
           count.successCountUp();
-        }).catch(() => {
+        }).catch((err) => {
+          console.error('create user error data: %o StackTrace: %o', data, err);
           count.failCountUp();
         });
       }),

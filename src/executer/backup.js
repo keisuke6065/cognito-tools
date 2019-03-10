@@ -3,7 +3,7 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const JSONStream = require('JSONStream');
 const bottleneck = require('bottleneck');
-const Count = require('../util/index');
+const Count = require('../util/count');
 
 const limiter = new bottleneck({
   maxConcurrent: 1,
@@ -23,16 +23,15 @@ module.exports.main = async (region, userPoolId, outputDir) => {
   stringify.pipe(writeStream);
   const fetchUsers = limiter.wrap(
       async (params) => await cognitoIsp.listUsers(params).promise());
-  const fetch = () => {
-    return fetchUsers(params).then(data => {
-      data.Users.forEach(user => stringify.write(user));
-      count.totalCountUp(data.Users.length);
-      if (data.PaginationToken !== undefined) {
-        params.PaginationToken = data.PaginationToken;
-        return fetch();
-      }
-    }).catch();
-  };
+
+  const fetch = () => fetchUsers(params).then(data => {
+    data.Users.forEach(user => stringify.write(user));
+    count.totalCountUp(data.Users.length);
+    if (data.PaginationToken !== undefined) {
+      params.PaginationToken = data.PaginationToken;
+      return fetch();
+    }
+  }).catch(err => console.error(err));
   return fetch().then(() => {
     stringify.end();
     return count.state.totalCount;

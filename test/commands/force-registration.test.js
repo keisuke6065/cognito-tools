@@ -5,8 +5,10 @@ const sinon = require('sinon');
 const registration = require('../../src/executer/force-registration');
 
 const region = 'test region';
+const userPoolId = 'test clientId';
 const clientId = 'test clientId';
 const filePath = 'test filePath';
+const outputFilePath = 'test filePath';
 
 const totalCount = 3;
 const successCount = 1;
@@ -23,8 +25,10 @@ describe('force-registration', () => {
       command([
         'force-registration',
         '--region', region,
+        '--userPoolId', userPoolId,
         '--clientId', clientId,
         '--input', filePath,
+        '--output', outputFilePath,
       ]).
       it('runs registration parameter test', ctx => {
         expect(ctx.stdout).to.contain(`totalUserCount: ${totalCount}`);

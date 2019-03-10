@@ -1,7 +1,7 @@
 const chai = require('chai');
 const assert = chai.assert;
 
-const Count = require('../../src/util/index');
+const Count = require('../../src/util/count');
 
 describe('count test', () => {
   it('countUp', () => {

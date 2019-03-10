@@ -2,7 +2,8 @@
   "extends": ["eslint:recommended", "plugin:node/recommended"],
   "plugins": ["node"],
   "rules": {
-    "node/no-unsupported-features": ["error", {"version": 10}]
+    "node/no-unsupported-features": ["error", {"version": 10}],
+    "no-console": ["error", { "allow": ["warn", "error"]} ]
   },
   "env": {
     "mocha": true
