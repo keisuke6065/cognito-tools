@@ -19,7 +19,7 @@ $ npm install -g cognito-tools
 $ cognito-tools COMMAND
 running command...
 $ cognito-tools (-v|--version|version)
-cognito-tools/0.0.4 darwin-x64 node-v10.15.1
+cognito-tools/0.0.5 darwin-x64 node-v10.15.1
 $ cognito-tools --help [COMMAND]
 USAGE
   $ cognito-tools COMMAND
@@ -35,7 +35,7 @@ USAGE
 
 ## `cognito-tools backup`
 
-cognito-tools -u [USER_POOL_ID] -r [REGION] -o .
+cognito-tools backup -u [USER_POOL_ID] -r [REGION] -o [OUTPUT_TARGET_DIR]
 
 ```
 USAGE
@@ -47,30 +47,55 @@ OPTIONS
   -u, --userPoolId=userPoolId  (required) userPool Id
 
 DESCRIPTION
-  cognito-tools -u [USER_POOL_ID] -r [REGION] -o .
+  cognito-tools backup -u [USER_POOL_ID] -r [REGION] -o [OUTPUT_TARGET_DIR]
+
+  output file example
+  [{"Username":"","Attributes":[{"Name":"sub","Value":"7f1f8d94-5c2d-430f-97a7-e2d5d0bb14f1"},{"Name":"email_verified","
+  Value":"false"},{"Name":"email","Value":"sample@example.com"}],"UserCreateDate":"2019-01-18T00:48:59.572Z","UserLastMo
+  difiedDate":"2019-01-18T00:48:59.572Z","Enabled":true,"UserStatus":"UNCONFIRMED"}]
 ```
 
-_See code: [src/commands/backup.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.4/src/commands/backup.js)_
+_See code: [src/commands/backup.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.5/src/commands/backup.js)_
 
 ## `cognito-tools force-registration`
 
-Describe the command here
+cognito-tools force-registration -u [USER_POOL_ID] -c [CLIENT_ID] -r [REGION] -i [INPUT_CSV_FILE] -o [OUTPUT_TARGET_DIR]
 
 ```
 USAGE
   $ cognito-tools force-registration
 
 OPTIONS
-  -c, --clientId=clientId  (required) client Id
-  -i, --input=input        (required) input target csv file
-  -r, --region=region      [default: ap-northeast-1] region name
+  -c, --clientId=clientId      (required) client Id
+  -i, --input=input            (required) input target csv file
+  -o, --output=output          [default: ./output] output target dir
+  -r, --region=region          [default: ap-northeast-1] region name
+  -u, --userPoolId=userPoolId  (required) userPool Id
 
 DESCRIPTION
-  ...
-  Extra documentation goes here
+  cognito-tools force-registration -u [USER_POOL_ID] -c [CLIENT_ID] -r [REGION] -i [INPUT_CSV_FILE] -o 
+  [OUTPUT_TARGET_DIR]
+
+  force create user
+
+  input file example
+  email,password,custom:customAttributeName,facebookId
+  6059028c-2d13-11e9-8d87-4f75dd5bbbcf@exmaple.com,,1,00000000000
+  605986da-2d13-11e9-a4e7-ef206b70e234@exmaple.com,password,2,00000000001
+  605a07ea-2d13-11e9-97b7-13fb3194c166@exmaple.com,password,3,
+
+  password none      -> admin create user
+  password exists    -> sign up user
+  facebook id exists -> admin create user or sign up user and link provider
+
+  output file example
+  userName,email,password,custom:customAttributeName,facebookId
+  66ef45ad-86a1-4377-aa86-2d3356933b36,6059028c-2d13-11e9-8d87-4f75dd5bbbcf@exmaple.com,,1,00000000000
+  b9225937-9578-4b31-9efe-3a00bebc4ccd,605986da-2d13-11e9-a4e7-ef206b70e234@exmaple.com,password,2,00000000001
+  ffb029f0-2b2c-4b1d-a927-1845990707fd,605a07ea-2d13-11e9-97b7-13fb3194c166@exmaple.com,password,3,
 ```
 
-_See code: [src/commands/force-registration.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.4/src/commands/force-registration.js)_
+_See code: [src/commands/force-registration.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.5/src/commands/force-registration.js)_
 
 ## `cognito-tools help [COMMAND]`
 
@@ -91,7 +116,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.6
 
 ## `cognito-tools restore`
 
-Describe the command here
+cognito-tools restore -u [USER_POOL_ID] -r [REGION] -i [INPUT_JSON_FILE]
 
 ```
 USAGE
@@ -103,9 +128,19 @@ OPTIONS
   -u, --userPoolId=userPoolId  (required) userPool Id
 
 DESCRIPTION
-  ...
-  Extra documentation goes here
+  cognito-tools restore -u [USER_POOL_ID] -r [REGION] -i [INPUT_JSON_FILE]
+
+  cognito admin create user
+  input json file example
+  [{"Username":"","Attributes":[{"Name":"sub","Value":"039bf366-7942-4888-a772-41dadacb2ea9"},{"Name":"email","Value":"s
+  ample@example.com"}]}]
+
+  admin create use options
+  Username = email
+  MessageAction = SUPPRESS
+  DesiredDeliveryMediums = none
+  ForceAliasCreation = false
 ```
 
-_See code: [src/commands/restore.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.4/src/commands/restore.js)_
+_See code: [src/commands/restore.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.5/src/commands/restore.js)_
 <!-- commandsstop -->
