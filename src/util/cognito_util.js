@@ -13,7 +13,7 @@ exports.forceCreateUser = (cognitoIsp, data, userPoolId, clientId) => {
     return cognitoIsp.adminCreateUser(adminParam).promise().then(
         async value => {
           const uuid = value.User.Username;
-          if (data.facebookId !== '') {
+          if (data.facebookId && data.facebookId !== '') {
             await linkFacebookProvider(cognitoIsp, userPoolId, uuid,
                 data.facebookId).catch(err => console.error(err));
           }
@@ -23,7 +23,7 @@ exports.forceCreateUser = (cognitoIsp, data, userPoolId, clientId) => {
   const signUpParam = createSignUpParam(clientId, data);
   return cognitoIsp.signUp(signUpParam).promise().then(async value => {
     const uuid = value.UserSub;
-    if (data.facebookId !== '') {
+    if (data.facebookId && data.facebookId !== '') {
       await linkFacebookProvider(cognitoIsp, userPoolId, uuid, data.facebookId).
           catch(err => console.error(err));
     }
@@ -32,7 +32,8 @@ exports.forceCreateUser = (cognitoIsp, data, userPoolId, clientId) => {
 };
 
 exports.createParam = (userPoolId, data) => {
-  const attributes = data.Attributes.filter(a => a.Name !== 'sub' || a.Name !== 'identities');
+  const attributes = data.Attributes.filter(
+      a => a.Name !== 'sub' || a.Name !== 'identities');
   const email = data.Attributes.filter(
       a => a.Name === 'email')[0].Value;
   // Username = email

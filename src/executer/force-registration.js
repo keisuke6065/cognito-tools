@@ -34,8 +34,7 @@ module.exports.main = async (
   const userCreation = limiter.wrap(
       async (param) => forceCreateUser(cognitoIsp, param,
           userPoolId, clientId));
-  const buf = Buffer.from(filePath);
-  const readStream = fs.createReadStream(buf, 'utf8');
+  const readStream = fs.createReadStream(Buffer.from(filePath), 'utf8');
   const writableStream = readStream.pipe(parse);
 
   const writeStream = fs.createWriteStream(`${outputDir}/${userPoolId}.csv`,
