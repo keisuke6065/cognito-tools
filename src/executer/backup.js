@@ -2,13 +2,8 @@ const AWS = require('aws-sdk');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const JSONStream = require('JSONStream');
-const bottleneck = require('bottleneck');
+const {limiter} = require('../util/limiter');
 const Count = require('../util/count');
-
-const limiter = new bottleneck({
-  maxConcurrent: 1,
-  minTime: 200,
-});
 
 const limitCount = 60;
 const count = new Count();
@@ -21,7 +16,7 @@ module.exports.main = async (region, userPoolId, outputDir) => {
       'utf8');
   const stringify = JSONStream.stringify();
   stringify.pipe(writeStream);
-  const fetchUsers = limiter.wrap(
+  const fetchUsers = limiter(1, 200).wrap(
       async (params) => await cognitoIsp.listUsers(params).promise());
 
   const fetch = () => fetchUsers(params).then(data => {

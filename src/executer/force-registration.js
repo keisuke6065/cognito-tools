@@ -1,16 +1,15 @@
 const AWS = require('aws-sdk');
-const bottleneck = require('bottleneck');
 const csvParse = require('csv-parse');
 const csv = require('csv');
+const util = require('util');
 const fs = require('fs');
+const path = require('path');
 const Count = require('../util/count');
 const {forceCreateUser} = require('../util/cognito_util');
+const {limiter} = require('../util/limiter');
 
 const count = new Count();
-const limiter = new bottleneck({
-  maxConcurrent: 10,
-  minTime: 100,
-});
+
 const parse = csvParse({
   columns: true,
   skip_empty_lines: true,
@@ -26,18 +25,20 @@ const parse = csvParse({
  * @param clientId
  * @param filePath
  * @param outputDir
+ * @param limit
  * @returns {Promise<{failCount, successCount, totalCount}|*>}
  */
 module.exports.main = async (
-    region, userPoolId, clientId, filePath, outputDir) => {
+    region, userPoolId, clientId, filePath, outputDir, limit) => {
   const cognitoIsp = new AWS.CognitoIdentityServiceProvider({region});
-  const userCreation = limiter.wrap(
+  const userCreation = limiter(limit, 100).wrap(
       async (param) => forceCreateUser(cognitoIsp, param,
           userPoolId, clientId));
   const readStream = fs.createReadStream(Buffer.from(filePath), 'utf8');
   const writableStream = readStream.pipe(parse);
 
-  const writeStream = fs.createWriteStream(`${outputDir}/${userPoolId}.csv`,
+  const writeStream = fs.createWriteStream(
+      `${outputDir}/${path.parse(filePath).name}.csv`,
       'utf8');
   const stringify = csv.stringify({header: true});
 
@@ -48,7 +49,8 @@ module.exports.main = async (
       stringify.write({userName: result, ...data});
       count.successCountUp();
     }).catch((err) => {
-      console.error('create user error data: %o StackTrace: %o', data, err);
+      console.error('create user error data: %o StackTrace: %o',
+          JSON.stringify(data), JSON.stringify(util.inspect(err)));
       count.failCountUp();
     });
   });

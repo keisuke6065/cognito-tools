@@ -5,7 +5,8 @@ class RestoreCommand extends Command {
   async run() {
     const {flags} = this.parse(RestoreCommand);
     const {totalCount, successCount, failCount} =
-        await restore.main(flags.region, flags.userPoolId, flags.input);
+        await restore.main(flags.region, flags.userPoolId, flags.input,
+            flags.limit);
     this.log(`totalUserCount: ${totalCount}`);
     this.log(`successUserCount: ${successCount}`);
     this.log(`failUserCount: ${failCount}`);
@@ -48,6 +49,13 @@ RestoreCommand.flags = {
         char: 'i',
         description: 'input target file',
         required: true,
+      },
+  ),
+  limit: flags.string(
+      {
+        char: 'l',
+        description: 'request limit (AdminCreateUser)',
+        default: 5,
       },
   ),
 };

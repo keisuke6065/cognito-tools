@@ -3,16 +3,12 @@ const fs = require('fs');
 const JSONStream = require('JSONStream');
 const util = require('util');
 const stream = require('stream');
-const bottleneck = require('bottleneck');
+const {limiter} = require('../util/limiter');
 const Count = require('../util/count');
 const {adminCreateUser, createParam} = require('../util/cognito_util');
 
 const count = new Count();
 const pipeline = util.promisify(stream.pipeline);
-const limiter = new bottleneck({
-  maxConcurrent: 10,
-  minTime: 100,
-});
 
 /**
  * user name eq email pattern
@@ -20,11 +16,12 @@ const limiter = new bottleneck({
  * @param region
  * @param userPoolId
  * @param filePath
+ * @param limit
  * @returns {Promise<{totalCount: number, successCount: number, failCount: number}>}
  */
-exports.main = async (region, userPoolId, filePath) => {
+exports.main = async (region, userPoolId, filePath,limit) => {
   const cognitoIsp = new AWS.CognitoIdentityServiceProvider({region});
-  const userCreation = limiter.wrap(
+  const userCreation = limiter(limit, 100).wrap(
       async (param) => adminCreateUser(cognitoIsp, param));
 
   const readStream = fs.createReadStream(filePath, 'utf8');

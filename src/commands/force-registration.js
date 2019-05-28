@@ -9,7 +9,7 @@ class ForceRegistrationCommand extends Command {
     const {flags} = this.parse(ForceRegistrationCommand);
     const {totalCount, successCount, failCount} = await registration.main(
         flags.region, flags.userPoolId, flags.clientId,
-        flags.input, flags.output);
+        flags.input, flags.output, flags.limit);
 
     cli.ux.action.stop('done');
     this.log(`totalUserCount: ${totalCount}`);
@@ -77,6 +77,13 @@ ForceRegistrationCommand.flags = {
         char: 'o',
         description: 'output target dir',
         default: './output',
+      },
+  ),
+  limit: flags.string(
+      {
+        char: 'l',
+        description: 'request limit (AdminCreateUser or signUp or linkFacebookProvider)',
+        default: 5,
       },
   ),
 };
