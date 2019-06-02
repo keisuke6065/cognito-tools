@@ -55,7 +55,7 @@ DESCRIPTION
   difiedDate":"2019-01-18T00:48:59.572Z","Enabled":true,"UserStatus":"UNCONFIRMED"}]
 ```
 
-_See code: [src/commands/backup.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/backup.js)_
+_See code: [src/commands/backup.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/backup.js)_
 
 ## `cognito-tools force-registration`
 
@@ -96,7 +96,7 @@ DESCRIPTION
   ffb029f0-2b2c-4b1d-a927-1845990707fd,605a07ea-2d13-11e9-97b7-13fb3194c166@exmaple.com,password,3,
 ```
 
-_See code: [src/commands/force-registration.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/force-registration.js)_
+_See code: [src/commands/force-registration.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/force-registration.js)_
 
 ## `cognito-tools help [COMMAND]`
 
@@ -144,5 +144,5 @@ DESCRIPTION
   ForceAliasCreation = false
 ```
 
-_See code: [src/commands/restore.js](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/restore.js)_
+_See code: [src/commands/restore.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/restore.js)_
 <!-- commandsstop -->

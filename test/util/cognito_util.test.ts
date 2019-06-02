@@ -1,7 +1,8 @@
-const chai = require('chai');
+import * as chai from "chai";
+import {createParam} from "../../src/util/cognito-util";
+
 const assert = chai.assert;
 
-const {createParam} = require('../../src/util/cognito_util');
 
 describe('Restore test', () => {
   const userPoolId = 'hoge';

@@ -1,24 +1,11 @@
-const {Command, flags} = require('@oclif/command');
-const registration = require('../executer/force-registration');
-const cli = require('cli-ux');
+import {Command, flags} from '@oclif/command';
+import cli from 'cli-ux';
+import {main} from '../executer/force-registration';
 
-class ForceRegistrationCommand extends Command {
-  async run() {
-    cli.ux.action.start('starting userPool force registration.');
-
-    const {flags} = this.parse(ForceRegistrationCommand);
-    const {totalCount, successCount, failCount} = await registration.main(
-        flags.region, flags.userPoolId, flags.clientId,
-        flags.input, flags.output, flags.limit);
-
-    cli.ux.action.stop('done');
-    this.log(`totalUserCount: ${totalCount}`);
-    this.log(`successUserCount: ${successCount}`);
-    this.log(`failUserCount: ${failCount}`);
-  }
-}
-
-ForceRegistrationCommand.description = `
+// noinspection JSUnusedGlobalSymbols
+export default class ForceRegistrationCommand extends Command {
+  // noinspection JSUnusedGlobalSymbols
+  static description = `
 cognito-tools force-registration -u [USER_POOL_ID] -c [CLIENT_ID] -r [REGION] -i [INPUT_CSV_FILE] -o [OUTPUT_TARGET_DIR]
 
 force create user
@@ -39,53 +26,66 @@ userName,email,password,custom:customAttributeName,facebookId
 b9225937-9578-4b31-9efe-3a00bebc4ccd,605986da-2d13-11e9-a4e7-ef206b70e234@exmaple.com,password,2,00000000001
 ffb029f0-2b2c-4b1d-a927-1845990707fd,605a07ea-2d13-11e9-97b7-13fb3194c166@exmaple.com,password,3,
 `;
-
-ForceRegistrationCommand.flags = {
-  region: flags.string(
+  // noinspection JSUnusedGlobalSymbols
+  static flags = {
+    region: flags.string(
       {
         char: 'r',
         description: 'region name',
         env: 'REGION',
         default: 'ap-northeast-1',
       },
-  ),
-  userPoolId: flags.string(
+    ),
+    userPoolId: flags.string(
       {
         char: 'u',
         description: 'userPool Id',
         env: 'USER_POOL_ID',
         required: true,
       },
-  ),
-  clientId: flags.string(
+    ),
+    clientId: flags.string(
       {
         char: 'c',
         description: 'client Id',
         env: 'CLIENT_ID',
         required: true,
       },
-  ),
-  input: flags.string(
+    ),
+    input: flags.string(
       {
         char: 'i',
         description: 'input target csv file',
         required: true,
       },
-  ),
-  output: flags.string(
+    ),
+    output: flags.string(
       {
         char: 'o',
         description: 'output target dir',
         default: './output',
       },
-  ),
-  limit: flags.string(
+    ),
+    limit: flags.integer(
       {
         char: 'l',
         description: 'request limit (AdminCreateUser or signUp or linkFacebookProvider)',
         default: 5,
       },
-  ),
-};
+    ),
+  };
 
-module.exports = ForceRegistrationCommand;
+  async run() {
+    cli.action.start('starting userPool force registration.');
+
+    const {flags} = this.parse(ForceRegistrationCommand);
+    const {totalCount, successCount, failCount} = await main(
+      flags.region as string, flags.userPoolId, flags.clientId,
+      flags.input, flags.output as string, flags.limit as number);
+
+    cli.action.stop('done');
+    this.log(`totalUserCount: ${totalCount}`);
+    this.log(`successUserCount: ${successCount}`);
+    this.log(`failUserCount: ${failCount}`);
+  }
+}
