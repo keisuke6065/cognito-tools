@@ -73,9 +73,10 @@
   },
   "repository": "keisuke6065/cognito-tools",
   "scripts": {
-    "start": "./lib/run",
+    "start": "./bin/run",
     "backup": "./bin/run backup",
-    "restore": "./lib/run restore",
+    "restore": "./bin/run restore",
+    "delete": "./bin/run delete",
     "registration": "./bin/run force-registration",
     "oclif": "oclif",
     "postpack": "rm -f oclif.manifest.json",
