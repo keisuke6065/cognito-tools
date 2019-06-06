@@ -5,6 +5,7 @@
 /package-lock.json
 /tmp
 /lib
+tsconfig.tsbuildinfo
 node_modules
 
 ## output dir
