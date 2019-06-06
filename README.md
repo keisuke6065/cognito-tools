@@ -29,6 +29,7 @@ USAGE
 # Commands
 <!-- commands -->
 * [`cognito-tools backup`](#cognito-tools-backup)
+* [`cognito-tools delete`](#cognito-tools-delete)
 * [`cognito-tools force-registration`](#cognito-tools-force-registration)
 * [`cognito-tools help [COMMAND]`](#cognito-tools-help-command)
 * [`cognito-tools restore`](#cognito-tools-restore)
@@ -55,7 +56,31 @@ DESCRIPTION
   difiedDate":"2019-01-18T00:48:59.572Z","Enabled":true,"UserStatus":"UNCONFIRMED"}]
 ```
 
-_See code: [src/commands/backup.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/backup.js)_
+_See code: [src/commands/backup.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/backup.ts)_
+
+## `cognito-tools delete`
+
+cognito-tools delete -u [USER_POOL_ID] -r [REGION] -i [INPUT_JSON_FILE]
+
+```
+USAGE
+  $ cognito-tools delete
+
+OPTIONS
+  -i, --input=input            (required) input target path
+  -r, --region=region          (required) [default: ap-northeast-1] region name
+  -u, --userPoolId=userPoolId  (required) userPool Id
+
+DESCRIPTION
+  cognito-tools delete -u [USER_POOL_ID] -r [REGION] -i [INPUT_JSON_FILE]
+
+  cognito admin delete user
+  input json file example
+  [{"Username":"","Attributes":[{"Name":"sub","Value":"039bf366-7942-4888-a772-41dadacb2ea9"},{"Name":"email","Value":"s
+  ample@example.com"}]}]
+```
+
+_See code: [src/commands/delete.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/delete.ts)_
 
 ## `cognito-tools force-registration`
 
@@ -96,7 +121,7 @@ DESCRIPTION
   ffb029f0-2b2c-4b1d-a927-1845990707fd,605a07ea-2d13-11e9-97b7-13fb3194c166@exmaple.com,password,3,
 ```
 
-_See code: [src/commands/force-registration.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/force-registration.js)_
+_See code: [src/commands/force-registration.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/force-registration.ts)_
 
 ## `cognito-tools help [COMMAND]`
 
@@ -113,7 +138,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.6/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.0/src/commands/help.ts)_
 
 ## `cognito-tools restore`
 
@@ -144,5 +169,5 @@ DESCRIPTION
   ForceAliasCreation = false
 ```
 
-_See code: [src/commands/restore.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/restore.js)_
+_See code: [src/commands/restore.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.7/src/commands/restore.ts)_
 <!-- commandsstop -->

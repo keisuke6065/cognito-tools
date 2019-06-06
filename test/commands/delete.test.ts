@@ -2,7 +2,7 @@ import {expect, test} from '@oclif/test';
 
 import * as sinon from 'sinon';
 // mock
-import * as restore from '../../src/executer/restore';
+import * as deleter from '../../src/executer/delete';
 
 const region = 'test region';
 const userPoolId = 'test userPoolId';
@@ -12,15 +12,15 @@ const totalCount = 3;
 const successCount = 1;
 const failCount = 2;
 
-describe('restore command test', () => {
-  const stub = sinon.stub(restore, 'main');
+describe('delete command test', () => {
+  const stub = sinon.stub(deleter, 'main');
   stub.returns(new Promise(resolve => {
     return resolve(
       {totalCount, successCount, failCount},
     );
   }));
   test.stdout().command([
-    'restore',
+    'delete',
     '--region', region,
     '--userPoolId', userPoolId,
     '--input', filePath,
@@ -29,7 +29,7 @@ describe('restore command test', () => {
     expect(ctx.stdout).to.contain(`successUserCount: ${successCount}`);
     expect(ctx.stdout).to.contain(`failUserCount: ${failCount}`);
   });
-  it('runs restore parameter fail test', () => {
-    test.stderr().command(['restore.ts', '--region', region]).exit(2);
+  it('runs delete parameter fail test', () => {
+    test.stderr().command(['delete.ts', '--region', region]).exit(2);
   });
 });

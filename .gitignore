@@ -4,6 +4,7 @@
 /dist
 /package-lock.json
 /tmp
+/lib
 node_modules
 
 ## output dir

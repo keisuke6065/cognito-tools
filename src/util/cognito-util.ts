@@ -4,6 +4,10 @@ export const adminCreateUser = (cognitoIsp: CognitoIdentityServiceProvider, para
   return cognitoIsp.adminCreateUser(param).promise();
 };
 
+export const adminDeleteUser = (cognitoIsp: CognitoIdentityServiceProvider, param: CognitoIdentityServiceProvider.AdminDeleteUserRequest) => {
+  return cognitoIsp.adminDeleteUser(param).promise();
+};
+
 export const signUp = (cognitoIsp: CognitoIdentityServiceProvider, param: CognitoIdentityServiceProvider.SignUpRequest) => {
   return cognitoIsp.signUp(param).promise();
 };
