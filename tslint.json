@@ -24,7 +24,8 @@
     "max-classes-per-file": false,
     "semicolon": [
       true,
-      "always"
+      "always",
+      "ignore-bound-class-methods"
     ],
     "no-console": [
       false,

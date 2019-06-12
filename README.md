@@ -30,6 +30,7 @@ USAGE
 <!-- commands -->
 * [`cognito-tools backup`](#cognito-tools-backup)
 * [`cognito-tools delete`](#cognito-tools-delete)
+* [`cognito-tools delete-all`](#cognito-tools-delete-all)
 * [`cognito-tools force-registration`](#cognito-tools-force-registration)
 * [`cognito-tools help [COMMAND]`](#cognito-tools-help-command)
 * [`cognito-tools restore`](#cognito-tools-restore)
@@ -81,6 +82,26 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/delete.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.8/src/commands/delete.ts)_
+
+## `cognito-tools delete-all`
+
+cognito-tools delete -u [USER_POOL_ID] -r [REGION]
+
+```
+USAGE
+  $ cognito-tools delete-all
+
+OPTIONS
+  -r, --region=region          (required) [default: ap-northeast-1] region name
+  -u, --userPoolId=userPoolId  (required) userPool Id
+
+DESCRIPTION
+  cognito-tools delete -u [USER_POOL_ID] -r [REGION]
+
+  fetch delete command
+```
+
+_See code: [src/commands/delete-all.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.8/src/commands/delete-all.ts)_
 
 ## `cognito-tools force-registration`
 

@@ -2,11 +2,10 @@ import {expect, test} from '@oclif/test';
 
 import * as sinon from 'sinon';
 // mock
-import * as deleter from '../../src/executer/delete';
+import * as deleter from '../../src/executer/delete-all';
 
 const region = 'test region';
 const userPoolId = 'test userPoolId';
-const filePath = 'test filePath';
 
 const totalCount = 3;
 const successCount = 1;
@@ -20,16 +19,15 @@ describe('delete command test', () => {
     );
   }));
   test.stdout().command([
-    'delete',
+    'delete-all',
     '--region', region,
     '--userPoolId', userPoolId,
-    '--input', filePath,
-  ]).it('runs delete parameter test', ctx => {
+  ]).it('runs delete all parameter test', ctx => {
     expect(ctx.stdout).to.contain(`totalUserCount: ${totalCount}`);
     expect(ctx.stdout).to.contain(`successUserCount: ${successCount}`);
     expect(ctx.stdout).to.contain(`failUserCount: ${failCount}`);
   });
-  it('runs delete parameter fail test', () => {
+  it('runs delete all parameter fail test', () => {
     test.stderr().command(['delete.ts', '--region', region]).exit(2);
   });
 });

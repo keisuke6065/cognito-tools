@@ -1,4 +1,25 @@
 import * as CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider';
+import * as AWS from 'aws-sdk';
+
+export default class CognitoUtil {
+  cognitoIsp: CognitoIdentityServiceProvider;
+
+  constructor(region: string) {
+    this.cognitoIsp = new AWS.CognitoIdentityServiceProvider({region});
+  }
+
+  adminCreateUser = (param: CognitoIdentityServiceProvider.AdminCreateUserRequest) => {
+    return this.cognitoIsp.adminCreateUser(param).promise();
+  };
+
+  adminDeleteUser = (params: CognitoIdentityServiceProvider.AdminDeleteUserRequest) => {
+    return this.cognitoIsp.adminDeleteUser(params).promise();
+  };
+
+  fetchUsers = (params: CognitoIdentityServiceProvider.ListUsersRequest) => {
+    return this.cognitoIsp.listUsers(params).promise();
+  };
+}
 
 export const adminCreateUser = (cognitoIsp: CognitoIdentityServiceProvider, param: CognitoIdentityServiceProvider.AdminCreateUserRequest) => {
   return cognitoIsp.adminCreateUser(param).promise();
