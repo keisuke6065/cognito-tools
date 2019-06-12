@@ -19,7 +19,7 @@ $ npm install -g cognito-tools
 $ cognito-tools COMMAND
 running command...
 $ cognito-tools (-v|--version|version)
-cognito-tools/0.0.8 darwin-x64 node-v10.15.1
+cognito-tools/0.0.9 darwin-x64 node-v10.15.1
 $ cognito-tools --help [COMMAND]
 USAGE
   $ cognito-tools COMMAND
@@ -57,7 +57,7 @@ DESCRIPTION
   difiedDate":"2019-01-18T00:48:59.572Z","Enabled":true,"UserStatus":"UNCONFIRMED"}]
 ```
 
-_See code: [src/commands/backup.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.8/src/commands/backup.ts)_
+_See code: [src/commands/backup.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.9/src/commands/backup.ts)_
 
 ## `cognito-tools delete`
 
@@ -81,7 +81,7 @@ DESCRIPTION
   ample@example.com"}]}]
 ```
 
-_See code: [src/commands/delete.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.8/src/commands/delete.ts)_
+_See code: [src/commands/delete.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.9/src/commands/delete.ts)_
 
 ## `cognito-tools delete-all`
 
@@ -101,7 +101,7 @@ DESCRIPTION
   fetch delete command
 ```
 
-_See code: [src/commands/delete-all.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.8/src/commands/delete-all.ts)_
+_See code: [src/commands/delete-all.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.9/src/commands/delete-all.ts)_
 
 ## `cognito-tools force-registration`
 
@@ -142,7 +142,7 @@ DESCRIPTION
   ffb029f0-2b2c-4b1d-a927-1845990707fd,605a07ea-2d13-11e9-97b7-13fb3194c166@exmaple.com,password,3,
 ```
 
-_See code: [src/commands/force-registration.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.8/src/commands/force-registration.ts)_
+_See code: [src/commands/force-registration.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.9/src/commands/force-registration.ts)_
 
 ## `cognito-tools help [COMMAND]`
 
@@ -190,5 +190,5 @@ DESCRIPTION
   ForceAliasCreation = false
 ```
 
-_See code: [src/commands/restore.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.8/src/commands/restore.ts)_
+_See code: [src/commands/restore.ts](https://github.com/keisuke6065/cognito-tools/blob/v0.0.9/src/commands/restore.ts)_
 <!-- commandsstop -->

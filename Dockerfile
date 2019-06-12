@@ -1,6 +1,6 @@
 FROM node:10.15.3-alpine
 
-ARG VERSION=0.0.8
+ARG VERSION=0.0.9
 
 RUN npm config set unsafe-perm true \
     && npm update -g \
