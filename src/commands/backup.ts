@@ -54,9 +54,3 @@ output file example
     this.log(`output file ${flags.output}/${flags.userPoolId}.json`);
   }
 }
-
-// interface BackupFlags {
-//   region: string,
-//   userPoolId: string,
-//   output: string
-// }

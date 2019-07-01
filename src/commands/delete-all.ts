@@ -3,7 +3,7 @@ import {main} from '../executer/delete-all';
 import cli from 'cli-ux';
 
 // noinspection JSUnusedGlobalSymbols
-export default class Delete extends Command {
+export default class DeleteAllCommand extends Command {
   // noinspection JSUnusedGlobalSymbols
   static description = `
 cognito-tools delete -u [USER_POOL_ID] -r [REGION]
@@ -34,7 +34,7 @@ fetch delete command
 
   async run() {
     cli.action.start('starting userPool delete all user');
-    const {flags} = this.parse(Delete);
+    const {flags} = this.parse(DeleteAllCommand);
     const {successCount, failCount, totalCount} = await main(flags.region, flags.userPoolId);
     cli.action.stop('done');
     this.log(`totalUserCount: ${totalCount}`);

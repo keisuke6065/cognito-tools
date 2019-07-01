@@ -2,7 +2,7 @@ import {Command, flags} from '@oclif/command';
 import {main} from '../executer/delete';
 
 // noinspection JSUnusedGlobalSymbols
-export default class Delete extends Command {
+export default class DeleteCommand extends Command {
   // noinspection JSUnusedGlobalSymbols
   static description = `
 cognito-tools delete -u [USER_POOL_ID] -r [REGION] -i [INPUT_JSON_FILE]
@@ -41,7 +41,7 @@ input json file example
   };
 
   async run() {
-    const {flags} = this.parse(Delete);
+    const {flags} = this.parse(DeleteCommand);
     const {successCount, failCount, totalCount} = await main(flags.region, flags.userPoolId, flags.input);
     this.log(`totalUserCount: ${totalCount}`);
     this.log(`successUserCount: ${successCount}`);
