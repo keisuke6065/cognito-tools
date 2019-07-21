@@ -29,5 +29,9 @@ describe('Restore test', () => {
   it('eq createParam', () => {
     assert.deepEqual(param.UserPoolId, userPoolId);
     assert.deepEqual(param.Username, data.Attributes[4].Value);
+    assert.notDeepInclude(param.UserAttributes, {
+      'Name': 'sub',
+      'Value': '0416cdc1-b426-4d66-8f0b-c26896f39c4a',
+    });
   });
 });
