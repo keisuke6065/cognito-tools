@@ -58,7 +58,7 @@ export const forceCreateUser = (cognitoIsp: CognitoIdentityServiceProvider, data
 };
 
 export const createParam = (userPoolId: string, data: any) => {
-  const attributes = data.Attributes.filter((a: any) => a.Name !== 'sub' || a.Name !== 'identities');
+  const attributes = data.Attributes.filter((a: any) => a.Name !== 'sub' && a.Name !== 'identities');
   const email = data.Attributes.filter((a: any) => a.Name === 'email')[0].Value;
   // Username = email
   return {
