@@ -1,5 +1,5 @@
-import * as chai from "chai";
-import Count from "../../src/util/count";
+import * as chai from 'chai';
+import Count from '../../src/util/count';
 
 const assert = chai.assert;
 describe('count test', () => {

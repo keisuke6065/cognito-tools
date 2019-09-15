@@ -1,5 +1,5 @@
-import * as chai from "chai";
-import {createParam} from "../../src/util/cognito-util";
+import * as chai from 'chai';
+import {createParam} from '../../src/util/cognito-util';
 
 const assert = chai.assert;
 

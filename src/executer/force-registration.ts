@@ -31,7 +31,7 @@ const parse = csvParse({
  */
 export const main = async (region: string, userPoolId: string, clientId: string, filePath: string, outputDir: string, limit: number) => {
   const cognitoIsp = new AWS.CognitoIdentityServiceProvider({region});
-  const userCreation = limiter(limit, 100).wrap(async (param: any) => forceCreateUser(cognitoIsp, param, userPoolId, clientId));
+  const userCreation = limiter(limit).wrap(async (param: any) => forceCreateUser(cognitoIsp, param, userPoolId, clientId));
   const readStream = fs.createReadStream(Buffer.from(filePath), 'utf8');
   const writableStream = readStream.pipe(parse);
 
