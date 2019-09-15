@@ -1,8 +1,7 @@
 import Bottleneck from 'bottleneck';
 
-export const limiter = (maxConcurrent: number, minTime: number) => {
+export const limiter = (maxConcurrent: number) => {
   return new Bottleneck({
     maxConcurrent,
-    minTime
   });
 };

@@ -12,10 +12,10 @@ const count = new Count();
 
 export const main = async (region: string, userPoolId: string) => {
   const cognito = new Cognito(region);
-  const fetchUsers = limiter(1, 200).wrap(async (params: ListUsersRequest) => {
+  const fetchUsers = limiter(1).wrap(async (params: ListUsersRequest) => {
     return cognito.fetchUsers(params);
   });
-  const adminDeleteUser = limiter(5, 200).wrap(async (params: AdminDeleteUserRequest) => {
+  const adminDeleteUser = limiter(5).wrap(async (params: AdminDeleteUserRequest) => {
     return cognito.adminDeleteUser(params);
   });
   const params: ListUsersRequest = {UserPoolId: userPoolId, Limit: limitCount};
