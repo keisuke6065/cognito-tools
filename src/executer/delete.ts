@@ -12,7 +12,7 @@ const pipeline = util.promisify(stream.pipeline);
 
 export const main = async (region: string, userPoolId: string, filePath: string) => {
   const cognitoIsp = new AWS.CognitoIdentityServiceProvider({region});
-  const userDeletion = limiter(5).wrap(async (param: any) => adminDeleteUser(cognitoIsp, param));
+  const userDeletion = limiter(5, 100).wrap(async (param: any) => adminDeleteUser(cognitoIsp, param));
   const readStream = fs.createReadStream(filePath, 'utf8');
   const parse = JSONStream.parse('*');
   const writableStream = readStream.pipe(parse);

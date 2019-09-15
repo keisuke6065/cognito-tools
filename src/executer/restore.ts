@@ -21,7 +21,7 @@ const pipeline = util.promisify(stream.pipeline);
  */
 export const main = async (region: string, userPoolId: string, filePath: string, limit: number) => {
   const cognitoIsp = new AWS.CognitoIdentityServiceProvider({region});
-  const userCreation = limiter(limit).wrap(async (param: any) => adminCreateUser(cognitoIsp, param));
+  const userCreation = limiter(limit, 100).wrap(async (param: any) => adminCreateUser(cognitoIsp, param));
 
   const readStream = fs.createReadStream(filePath, 'utf8');
   const parse = JSONStream.parse('*');

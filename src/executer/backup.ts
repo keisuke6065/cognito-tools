@@ -16,7 +16,7 @@ export const main = async ({region, userPoolId, outputDir}: { region: string, us
   const stringify = JSONStream.stringify();
   stringify.pipe(writeStream);
 
-  const fetchUsers = limiter(1).wrap(async (params: ListUsersRequest) => {
+  const fetchUsers = limiter(1, 200).wrap(async (params: ListUsersRequest) => {
     return cognitoUtil.fetchUsers(params);
   });
 
