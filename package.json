@@ -28,7 +28,7 @@
     "@types/csv-stringify": "^1.4.3",
     "@types/jsonstream": "^0.8.30",
     "@types/mkdirp": "^0.5.2",
-    "@types/mocha": "^5",
+    "@types/mocha": "^8",
     "@types/node": "^15",
     "chai": "^4",
     "codecov": "^3.1.0",
