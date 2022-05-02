@@ -37,7 +37,7 @@
     "eslint-plugin-node": "^11.1.0",
     "globby": "^8",
     "istanbul": "^0.4.5",
-    "mocha": "^5",
+    "mocha": "^10",
     "nyc": "^14.1.1",
     "sinon": "^9.2.4",
     "ts-node": "^8",
